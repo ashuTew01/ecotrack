@@ -85,39 +85,59 @@ const getWaterUsageStats = async (req, res) => {
 	try {
 		const { year, month } = req.params;
 
-		// no future mate
+		// Check if the year and month are valid
 		if (!isValidDate(year, month)) {
 			return res.status(400).json({ message: "Invalid year or month" });
 		}
 
+		// Find the user by ID
 		const user = await User.findById(req.user._id);
 
+		// If user not found, return 404
 		if (!user) {
 			return res.status(404).json({ message: "User not found" });
 		}
 
-		const waterUsageData = user.waterUsage.find(
+		// Find the water usage data for the specified year and month
+		const waterData = user.waterUsage.find(
 			(data) => data.year == year && data.month == month
 		);
 
-		if (!waterUsageData) {
+		// If water usage data not found, return 404
+		if (!waterData) {
 			return res.status(404).json({
 				message: "Water usage data not found for the specified year and month",
 			});
 		}
 
-		const totalWaterUsedByPerson = Object.values(
-			waterUsageData.categories
-		).reduce((acc, val) => acc + val, 0);
+		// Calculate total water usage by summing all categories
+		const totalWaterUsage = Object.values(waterData.categories).reduce(
+			(acc, val) => acc + val,
+			0
+		);
 
+		// Calculate total standard values for comparison
 		const totalStandardValues = Object.values(standardWaterValues).reduce(
 			(acc, val) => acc + val,
 			0
 		);
 
-		res
-			.status(200)
-			.json({ waterUsageData, totalWaterUsedByPerson, totalStandardValues });
+		// Determine if water usage is good or bad compared to standard values
+		const isGood = totalStandardValues - totalWaterUsage > 0;
+
+		// Calculate percentage increase or decrease compared to standard values
+		const percentageIncDec =
+			(Math.abs(totalStandardValues - totalWaterUsage) / totalStandardValues) *
+			100;
+
+		// Send response with water usage data and statistics
+		res.status(200).json({
+			waterData,
+			totalWaterUsage,
+			totalStandardValues,
+			isGood,
+			percentageIncDec,
+		});
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: "Server error" });
@@ -186,6 +206,8 @@ const getDetailedWaterUsageStats = async (req, res) => {
 	}
 };
 
+const getPrevTwelveMonthWaterData = async (req, res) => {};
+
 //***********************WATER USAGE END*************************************************************** */
 
 export {
@@ -193,4 +215,5 @@ export {
 	saveWaterUsageData,
 	getDetailedWaterUsageStats,
 	getWaterUsageStats,
+	getPrevTwelveMonthWaterData,
 };

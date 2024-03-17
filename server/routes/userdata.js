@@ -5,6 +5,7 @@
 import express from "express";
 import {
 	getDetailedWaterUsageStats,
+	getPrevTwelveMonthWaterData,
 	getWaterUsageStats,
 	saveWaterUsageData,
 	userDataTest,
@@ -17,9 +18,10 @@ const router = express.Router();
 router.get("/test", userDataTest);
 router.post("/water-usage/save", saveWaterUsageData);
 router.get("/water-usage/get-stats/:year/:month", getWaterUsageStats);
+router.get("/water-usage/get-twelve-month", getPrevTwelveMonthWaterData);
+
 router.get(
 	"/water-usage/get-detailed-stats/:year/:month",
 	getDetailedWaterUsageStats
 );
-
 export default router;

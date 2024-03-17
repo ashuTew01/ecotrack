@@ -130,6 +130,33 @@ export const api = createApi({
 
 		//****************************Carbon END***************************/
 
+		// **********************Carbon START************************************
+		getWaterStats: build.query({
+			query: ({ year, month }) => ({
+				url: `userdata/water-usage/get-stats/${year}/${month}`,
+				method: "GET",
+				headers: DEFAULT_HEADERS,
+			}),
+		}),
+		getTwelveMonthWater: build.query({
+			query: () => ({
+				url: `userdata/water-usage/get-twelve-month`,
+				method: "GET",
+				headers: DEFAULT_HEADERS,
+			}),
+		}),
+
+		saveWaterData: build.mutation({
+			query: (data) => ({
+				url: `userdata/water-usage/save`,
+				method: "POST",
+				body: data,
+				headers: DEFAULT_HEADERS,
+			}),
+		}),
+
+		//****************************Carbon END***************************/
+
 		getProducts: build.query({
 			query: () => "admin/client/products",
 			providesTags: ["Products"],
