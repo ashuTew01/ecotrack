@@ -156,7 +156,7 @@ const Sidebar = ({
 								if (!icon) {
 									return (
 										<Typography
-											key={route}
+											key={route + text}
 											sx={{ m: "1.75rem 0 0.75rem 3rem" }}
 										>
 											{text}

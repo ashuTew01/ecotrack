@@ -52,9 +52,19 @@ export default function SignUp() {
 		const password = data.get("password");
 		// const image = data.get("image");
 		const phone = data.get("phone");
+		const city = data.get("city");
+		const country = data.get("country");
 
 		try {
-			const res = await register({ fname, lname, email, password, phone });
+			const res = await register({
+				fname,
+				lname,
+				email,
+				password,
+				phone,
+				city,
+				country,
+			});
 			// console.log({ fname, lname, email, password, phone });
 			navigate("/login");
 			toast.success("User Created, please login with your credentials");
@@ -130,6 +140,27 @@ export default function SignUp() {
 						<Grid item xs={12}>
 							<TextField
 								required
+								fullWidth
+								name="city"
+								label="City"
+								type="city"
+								id="city"
+								autoComplete="city"
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								required
+								fullWidth
+								name="country"
+								label="Country"
+								type="country"
+								id="country"
+								autoComplete="country"
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
 								fullWidth
 								name="phone"
 								label="Phone"

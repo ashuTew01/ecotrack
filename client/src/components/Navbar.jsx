@@ -41,11 +41,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 
 	const navigate = useNavigate();
 
-	const [logoutApiCall] = useLogoutMutation();
+	// const [logoutApiCall] = useLogoutMutation();
 
 	const logoutHandler = async () => {
 		try {
-			await logoutApiCall().unwrap();
+			// await logoutApiCall().unwrap();
 			dispatch(removeCredentials());
 			navigate("/login");
 		} catch (error) {

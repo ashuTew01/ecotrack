@@ -7,6 +7,8 @@ import salesRoutes from "./admin/sales.js";
 import authRoutes from "./auth.js";
 import userDataRoutes from "./userdata.js";
 import newsRoutes from "./news.js";
+import whoStandardRoutes from "./whoStandard.js";
+import ecofriendlyTipRoutes from "./ecofriendlyTip.js";
 
 import { authorizeUser } from "../middleware/authMiddleware.js";
 
@@ -27,6 +29,8 @@ adminRouter.use("/sales", salesRoutes);
 
 generalRouter.use("/auth", authRoutes); //prefix "/"
 generalRouter.use("/userdata", authorizeUser, userDataRoutes);
-generalRouter.use("/news", newsRoutes);
+generalRouter.use("/news", authorizeUser, newsRoutes);
+generalRouter.use("/who-standards", authorizeUser, whoStandardRoutes);
+generalRouter.use("/eco-tips", authorizeUser, ecofriendlyTipRoutes);
 
 export { adminRouter, generalRouter };

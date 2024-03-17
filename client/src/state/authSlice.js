@@ -17,6 +17,7 @@ const authSlice = createSlice({
 		removeCredentials: (state, action) => {
 			state.userInfo = null;
 			localStorage.removeItem("userInfoEcoTrack");
+			localStorage.removeItem("tokenEcoTrack");
 		},
 	},
 });
