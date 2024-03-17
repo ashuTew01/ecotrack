@@ -8,3 +8,9 @@ export const standardWaterValues = {
 	waterClosetsFlushing: 30,
 	others: 5,
 };
+
+export const standardCarbonValues = {
+	transport: 130,
+	electricity: 130,
+	others: 130,
+};

@@ -103,6 +103,33 @@ export const api = createApi({
 
 		//****************************EcoTips and WHO Stds. End*****************************/
 
+		// **********************Carbon START************************************
+		getCarbonStats: build.query({
+			query: ({ year, month }) => ({
+				url: `carbon/get-stats/${year}/${month}`,
+				method: "GET",
+				headers: DEFAULT_HEADERS,
+			}),
+		}),
+		getTwelveMonthCarbon: build.query({
+			query: () => ({
+				url: `carbon/get-twelve-month/`,
+				method: "GET",
+				headers: DEFAULT_HEADERS,
+			}),
+		}),
+
+		saveCarbonData: build.mutation({
+			query: (data) => ({
+				url: `carbon/save`,
+				method: "POST",
+				body: data,
+				headers: DEFAULT_HEADERS,
+			}),
+		}),
+
+		//****************************Carbon END***************************/
+
 		getProducts: build.query({
 			query: () => "admin/client/products",
 			providesTags: ["Products"],
@@ -161,7 +188,11 @@ export const {
 	useGetRandomEcofriendlyTipsQuery,
 	useGetRandomWhoStandardsQuery,
 
+	useGetCarbonStatsQuery,
+	useGetTwelveMonthCarbonQuery,
+
 	useLoginMutation,
 	useRegisterMutation,
 	useLogoutMutation,
+	useSaveCarbonDataMutation,
 } = api;

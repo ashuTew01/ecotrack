@@ -1,13 +1,7 @@
 import React from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
-import {
-	DownloadOutlined,
-	Email,
-	PointOfSale,
-	PersonAdd,
-	Traffic,
-} from "@mui/icons-material";
+import { DownloadOutlined, Email, PointOfSale } from "@mui/icons-material";
 import {
 	Box,
 	Button,
@@ -114,7 +108,7 @@ const Dashboard = () => {
 						}
 					/>
 					<StatBox
-						title="Carbon Footprint (Tonnes)"
+						title="Carbon Footprint (kgs)"
 						value="34"
 						rangeText="HIGH"
 						description="Current Month"

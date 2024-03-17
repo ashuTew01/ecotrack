@@ -40,7 +40,11 @@ const userSchema = new mongoose.Schema(
 			{
 				year: Number,
 				month: Number,
-				footprint: Number, // Carbon footprint value for the month
+				categories: {
+					transport: Number,
+					electricity: Number,
+					others: Number,
+				},
 			},
 		],
 		waterUsage: [

@@ -9,18 +9,12 @@ import userDataRoutes from "./userdata.js";
 import newsRoutes from "./news.js";
 import whoStandardRoutes from "./whoStandard.js";
 import ecofriendlyTipRoutes from "./ecofriendlyTip.js";
+import carbonRoutes from "./carbon.js";
 
 import { authorizeUser } from "../middleware/authMiddleware.js";
 
 const adminRouter = express.Router();
 const generalRouter = express.Router();
-
-// // Middleware for the '/admin' route
-// adminRouter.use((req, res, next) => {
-//   // Any middleware specific to the '/admin' route can be added here
-//   console.log('Admin middleware');
-//   next();
-// });
 
 adminRouter.use("/client", clientRoutes);
 adminRouter.use("/general", generalRoutes);
@@ -32,5 +26,6 @@ generalRouter.use("/userdata", authorizeUser, userDataRoutes);
 generalRouter.use("/news", authorizeUser, newsRoutes);
 generalRouter.use("/who-standards", authorizeUser, whoStandardRoutes);
 generalRouter.use("/eco-tips", authorizeUser, ecofriendlyTipRoutes);
+generalRouter.use("/carbon", authorizeUser, carbonRoutes);
 
 export { adminRouter, generalRouter };

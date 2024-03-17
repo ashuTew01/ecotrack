@@ -1,32 +1,26 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { Box, Typography, useTheme } from "@mui/material";
-import { useGetSalesQuery } from "state/api";
 
-const BreakdownChart = ({ isDashboard = false }) => {
-	const { data, isLoading } = useGetSalesQuery();
+const BreakdownChart = ({
+	isDashboard = false,
+	categories,
+	beSmall = false,
+}) => {
 	const theme = useTheme();
 
-	if (!data || isLoading) return "Loading...";
-
-	const colors = [
-		theme.palette.secondary[600],
-		theme.palette.secondary[300],
-		theme.palette.secondary[300],
-		theme.palette.secondary[600],
-	];
-	const formattedData = Object.entries(data.salesByCategory).map(
-		([category, sales], i) => ({
+	const formattedData = Object.entries(categories).map(
+		([category, value], i) => ({
 			id: category,
 			label: category,
-			value: sales,
-			color: colors[i],
+			value: parseInt(value), // Parse the value as an integer
+			color: theme.palette.secondary[i % theme.palette.secondary.length],
 		})
 	);
 
 	return (
 		<Box
-			height={isDashboard ? "400px" : "100%"}
+			height={beSmall ? "100px" : "400px"}
 			width={undefined}
 			minHeight={isDashboard ? "325px" : undefined}
 			minWidth={isDashboard ? "325px" : undefined}
@@ -67,7 +61,6 @@ const BreakdownChart = ({ isDashboard = false }) => {
 						},
 					},
 				}}
-				colors={{ datum: "data.color" }}
 				margin={
 					isDashboard
 						? { top: 40, right: 80, bottom: 100, left: 50 }
@@ -76,15 +69,12 @@ const BreakdownChart = ({ isDashboard = false }) => {
 				sortByValue={true}
 				innerRadius={0.45}
 				activeOuterRadiusOffset={8}
+				enableArcLinkLabels={!isDashboard}
 				borderWidth={1}
 				borderColor={{
 					from: "color",
 					modifiers: [["darker", 0.2]],
 				}}
-				enableArcLinkLabels={!isDashboard}
-				arcLinkLabelsTextColor={theme.palette.secondary[200]}
-				arcLinkLabelsThickness={2}
-				arcLinkLabelsColor={{ from: "color" }}
 				arcLabelsSkipAngle={10}
 				arcLabelsTextColor={{
 					from: "color",
@@ -116,24 +106,6 @@ const BreakdownChart = ({ isDashboard = false }) => {
 					},
 				]}
 			/>
-			<Box
-				position="absolute"
-				top="50%"
-				left="50%"
-				color={theme.palette.secondary[400]}
-				textAlign="center"
-				pointerEvents="none"
-				sx={{
-					transform: isDashboard
-						? "translate(-125%, -170%)"
-						: "translate(-50%, -100%)",
-				}}
-			>
-				<Typography variant="h6">
-					{!isDashboard && "Total:"}
-					{data.yearlySalesTotal}
-				</Typography>
-			</Box>
 		</Box>
 	);
 };
