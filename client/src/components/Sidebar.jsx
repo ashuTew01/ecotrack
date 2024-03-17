@@ -17,6 +17,7 @@ import {
 	ChevronLeft,
 	ChevronRightOutlined,
 	HomeOutlined,
+	AssessmentOutlined,
 	ShoppingCartOutlined,
 	Groups2Outlined,
 	ReceiptLongOutlined,
@@ -27,6 +28,13 @@ import {
 	AdminPanelSettingsOutlined,
 	TrendingUpOutlined,
 	PieChartOutlined,
+	WaterDrop,
+	Co2,
+	Favorite,
+	LocalHospital,
+	Announcement,
+	Newspaper,
+	Public,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -36,60 +44,58 @@ import profileImage from "assets/profile.jpeg";
 const navItems = [
 	{
 		text: "Dashboard",
+		route: "dashboard",
 		icon: <HomeOutlined />,
 	},
-	// {
-	//   text: "Client Facing",
-	//   icon: null,
-	// },
-	// {
-	//   text: "Products",
-	//   icon: <ShoppingCartOutlined />,
-	// },
-	// {
-	//   text: "Customers",
-	//   icon: <Groups2Outlined />,
-	// },
-	// {
-	//   text: "Transactions",
-	//   icon: <ReceiptLongOutlined />,
-	// },
-	// {
-	//   text: "Geography",
-	//   icon: <PublicOutlined />,
-	// },
-	// {
-	//   text: "Sales",
-	//   icon: null,
-	// },
-	// {
-	//   text: "Overview",
-	//   icon: <PointOfSaleOutlined />,
-	// },
-	// {
-	//   text: "Daily",
-	//   icon: <TodayOutlined />,
-	// },
-	// {
-	//   text: "Monthly",
-	//   icon: <CalendarMonthOutlined />,
-	// },
-	// {
-	//   text: "Breakdown",
-	//   icon: <PieChartOutlined />,
-	// },
-	// {
-	//   text: "Management",
-	//   icon: null,
-	// },
-	// {
-	//   text: "Admin",
-	//   icon: <AdminPanelSettingsOutlined />,
-	// },
-	// {
-	//   text: "Performance",
-	//   icon: <TrendingUpOutlined />,
-	// },
+	{
+		text: "Environment Metrics",
+		route: "envmetrics",
+		icon: <AssessmentOutlined />,
+	},
+	{
+		text: "For You",
+		icon: null,
+	},
+	{
+		text: "Water Usage",
+		route: "water-usage",
+		icon: <WaterDrop />,
+	},
+	{
+		text: "Carbon Footprint",
+		route: "carbon-footprint",
+		icon: <Co2 />,
+	},
+	{
+		text: "Ecofriendly Tips",
+		route: "ecofriendly-tips",
+		icon: <Favorite />,
+	},
+	{
+		text: "WHO Standards",
+		route: "who-standards",
+		icon: <LocalHospital />,
+	},
+	{
+		text: "News & Events",
+		route: null,
+		icon: null,
+	},
+	{
+		text: "Top Headlines",
+		route: "top-headlines",
+		icon: <Announcement />,
+	},
+	{
+		text: "Local",
+		route: "local-news",
+		icon: <Newspaper />,
+	},
+	{
+		text: "Global",
+		route: "global-news",
+		icon: <Public />,
+	},
 ];
 
 const Sidebar = ({
@@ -146,15 +152,18 @@ const Sidebar = ({
 						</Box>
 						{/* box for the logo END */}
 						<List>
-							{navItems.map(({ text, icon }) => {
+							{navItems.map(({ text, route, icon }) => {
 								if (!icon) {
 									return (
-										<Typography key={text} sx={{ m: "1.75rem 0 0.75rem 3rem" }}>
+										<Typography
+											key={route}
+											sx={{ m: "1.75rem 0 0.75rem 3rem" }}
+										>
 											{text}
 										</Typography>
 									);
 								}
-								const lcText = text.toLowerCase();
+								const lcText = route;
 
 								return (
 									<ListItem key={text} disablePadding>
@@ -162,7 +171,7 @@ const Sidebar = ({
 										{/* removing disablePadding also gives it a nice distinctive look */}
 										<ListItemButton
 											onClick={() => {
-												navigate(`/${lcText}`);
+												navigate(`/${route}`);
 												setActive(lcText);
 											}}
 											sx={{
