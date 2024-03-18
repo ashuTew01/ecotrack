@@ -30,6 +30,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/profile.jpeg";
+import { useGetUserQuery } from "state/api";
 
 const navItems = [
 	{
@@ -37,24 +38,24 @@ const navItems = [
 		route: "dashboard",
 		icon: <HomeOutlined />,
 	},
-	{
-		text: "Environment Metrics",
-		route: "envmetrics",
-		icon: <AssessmentOutlined />,
-	},
+	// {
+	// 	text: "Environment Metrics",
+	// 	route: "envmetrics",
+	// 	icon: <AssessmentOutlined />,
+	// },
 	{
 		text: "For You",
 		icon: null,
 	},
 	{
-		text: "Water Usage",
-		route: "water-usage",
-		icon: <WaterDrop />,
-	},
-	{
 		text: "Carbon Footprint",
 		route: "carbon-footprint",
 		icon: <Co2 />,
+	},
+	{
+		text: "Water Usage",
+		route: "water-usage",
+		icon: <WaterDrop />,
 	},
 	{
 		text: "Ecofriendly Tips",
@@ -89,7 +90,6 @@ const navItems = [
 ];
 
 const Sidebar = ({
-	user,
 	drawerWidth,
 	isSidebarOpen,
 	setIsSidebarOpen,
@@ -99,6 +99,8 @@ const Sidebar = ({
 	const [active, setActive] = useState(""); //what page we are currently at.
 	const navigate = useNavigate();
 	const theme = useTheme();
+	const { data: userInfo, isLoading } = useGetUserQuery();
+	const user = userInfo?.user;
 
 	useEffect(() => {
 		setActive(pathname.substring(1));
@@ -106,7 +108,7 @@ const Sidebar = ({
 
 	return (
 		<Box component="nav">
-			{isSidebarOpen && (
+			{isSidebarOpen && !isLoading && (
 				<Drawer
 					open={isSidebarOpen}
 					onClose={() => setIsSidebarOpen(false)}
@@ -199,11 +201,17 @@ const Sidebar = ({
 
 					<Box marginBottom="1.5rem" bottom="2px">
 						<Divider />
-						<FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
+						<Box
+							display="flex"
+							justifyContent={"flex-start"}
+							textTransform="none"
+							gap="1rem"
+							m="1.5rem 2rem 0 3rem"
+						>
 							<Box
 								component="img"
 								alt="profile"
-								src={profileImage}
+								src={`profile.png`}
 								height="40px"
 								width="40px"
 								borderRadius="50%"
@@ -215,22 +223,22 @@ const Sidebar = ({
 									fontSize="0.9rem"
 									sx={{ color: theme.palette.secondary[100] }}
 								>
-									{user.name}
+									{user.fname}
 								</Typography>
 								<Typography
 									fontSize="0.8rem"
 									sx={{ color: theme.palette.secondary[200] }}
 								>
-									{user.occupation}
+									{user.city}
 								</Typography>
 							</Box>
-							<SettingsOutlined
+							{/* <SettingsOutlined
 								sx={{
 									color: theme.palette.secondary[300],
 									fontSize: "25px ",
 								}}
-							/>
-						</FlexBetween>
+							/> */}
+						</Box>
 					</Box>
 				</Drawer>
 			)}

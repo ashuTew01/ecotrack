@@ -77,8 +77,36 @@ const getRandomEcofriendlyTips = async (req, res) => {
 	}
 };
 
+const getRandomOneTip = async (req, res) => {
+	const lim = 1;
+
+	try {
+		const randomTips = await EcofriendlyTip.aggregate([
+			{ $match: {} },
+			{ $addFields: { randomValue: { $rand: {} } } },
+			{ $sort: { randomValue: 1 } },
+			{ $limit: lim },
+		]);
+
+		if (!randomTips.length) {
+			return res
+				.status(200)
+				.json({ message: "No ecofriendly tips found in the database" });
+		}
+
+		res.status(200).json({
+			message: `${randomTips.length} Random Ecofriendly Tips`,
+			data: randomTips,
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: "Server error" });
+	}
+};
+
 export {
 	ecofriendlyTipsTest,
 	createMultipleEcofriendlyTips,
 	getRandomEcofriendlyTips,
+	getRandomOneTip,
 };

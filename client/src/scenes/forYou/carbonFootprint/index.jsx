@@ -49,136 +49,141 @@ const CarbonFootprint = () => {
 						}}
 					>
 						<DownloadOutlined sx={{ mr: "10px" }} />
-						Download Reports
+						COMING SOON
 					</Button>
 				</Box>
 			</FlexBetween>
 
-			<Box
-				mt="20px"
-				display="grid"
-				gridTemplateColumns="repeat(12, 1fr)"
-				gridAutoRows="160px"
-				gap="30px"
-				sx={{
-					"& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
-				}}
-			>
+			{!isLoading && (
 				<Box
-					gridColumn="span 4"
-					gridRow="span 2"
-					backgroundColor="transparent"
-					p="1rem"
-					borderRadius="0.55rem"
-					display="flex"
-					justifyContent="space-between"
+					mt="20px"
+					display="grid"
+					gridTemplateColumns="repeat(12, 1fr)"
+					gridAutoRows="160px"
+					gap="30px"
+					sx={{
+						"& > div": {
+							gridColumn: isNonMediumScreens ? undefined : "span 12",
+						},
+					}}
 				>
-					<Box
-						component="img"
-						sx={{
-							height: 330,
-							width: 330,
-							// maxHeight: { xs: 233, md: 167 },
-							// maxWidth: { xs: 350, md: 250 },
-						}}
-						alt={data?.isGood ? `Well Done` : `Try Harder`}
-						src={data?.isGood ? `/well-done.png` : `/sad.svg`}
-					/>
-				</Box>
-				<Box
-					gridColumn="span 8"
-					gridRow="span 2"
-					backgroundColor="transparent"
-					p="1rem"
-					borderRadius="0.55rem"
-					display="flex"
-					flexDirection="column"
-					justifyContent="center"
-				>
-					<Typography variant="h1" sx={{ fontWeight: "bold" }}>
-						Your current CO<sub>2</sub> emissions are
-					</Typography>
-					<Typography
-						variant="h1"
-						sx={{
-							fontSize: 100,
-							fontWeight: "bold",
-							color: data?.isGood ? "green" : "red",
-						}}
-					>
-						{parseInt(data?.percentageIncDec)}% {data?.isGood ? `LESS` : `MORE`}
-					</Typography>
-					<Typography variant="h1">
-						than the standard values for a person.
-					</Typography>
-				</Box>
-				<Box
-					gridColumn="span 4"
-					gridRow="span 2"
-					// mt="20px"
-					display="flex"
-					flexDirection="column"
-					// gridTemplateColumns="repeat(4, 1fr)" // Update to 4 columns
-					// gridTemplateRows="repeat(2, auto)" // Update to 2 rows
-					gap="20px"
-				>
-					{/* ROW 1 */}
-					<OverviewBox
-						title="Current Month (kgs)"
-						value={parseInt(data?.totalCarbonByPerson)}
-						transport={parseInt(data?.carbonData?.categories?.transport)}
-						electricity={parseInt(data?.carbonData?.categories?.electricity)}
-						others={parseInt(data?.carbonData?.categories?.others)}
-						icon={
-							<Co2
-								sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-							/>
-						}
-						rowSpan={2}
-						colSpan={4}
-					/>
-				</Box>
-				<Box
-					gridColumn="span 8"
-					gridRow="span 2"
-					backgroundColor={theme.palette.background.alt}
-					p="1rem"
-					borderRadius="0.55rem"
-				>
-					<OverviewChart isDashboard={true} />
-				</Box>
-
-				{data?.carbonData?.categories && (
 					<Box
 						gridColumn="span 4"
-						gridRow="span 3"
-						backgroundColor={theme.palette.background.alt}
-						p="1.5rem"
+						gridRow="span 2"
+						backgroundColor="transparent"
+						p="1rem"
 						borderRadius="0.55rem"
+						display="flex"
+						justifyContent="space-between"
 					>
-						<Typography
-							variant="h3"
-							sx={{ color: theme.palette.secondary[100], fontWeight: "bold" }}
-						>
-							By Category
-						</Typography>
-						<BreakdownChart
-							categories={data.carbonData.categories}
-							isDashboard={true}
+						<Box
+							component="img"
+							sx={{
+								height: 330,
+								width: 330,
+								// maxHeight: { xs: 233, md: 167 },
+								// maxWidth: { xs: 350, md: 250 },
+							}}
+							alt={data?.isGood ? `Well Done` : `Try Harder`}
+							src={data?.isGood ? `/well-done.png` : `/sad.svg`}
 						/>
+					</Box>
+					<Box
+						gridColumn="span 8"
+						gridRow="span 2"
+						backgroundColor="transparent"
+						p="1rem"
+						borderRadius="0.55rem"
+						display="flex"
+						flexDirection="column"
+						justifyContent="center"
+					>
+						<Typography variant="h1" sx={{ fontWeight: "bold" }}>
+							Your current CO<sub>2</sub> emissions are
+						</Typography>
 						<Typography
-							p="0 0.6rem"
-							fontSize="0.8rem"
-							sx={{ color: theme.palette.secondary[200] }}
+							variant="h1"
+							sx={{
+								fontSize: 100,
+								fontWeight: "bold",
+								color: data?.isGood ? "green" : "red",
+							}}
 						>
-							Breakdown of carbon footprint by the category in which it was
-							generated.
+							{parseInt(data?.percentageIncDec)}%{" "}
+							{data?.isGood ? `LESS` : `MORE`}
+						</Typography>
+						<Typography variant="h1">
+							than the standard values for a person.
 						</Typography>
 					</Box>
-				)}
-				<CarbonFootprintByMonth />
-				<CarbonSaveForm />
-			</Box>
+					<Box
+						gridColumn="span 4"
+						gridRow="span 2"
+						// mt="20px"
+						display="flex"
+						flexDirection="column"
+						// gridTemplateColumns="repeat(4, 1fr)" // Update to 4 columns
+						// gridTemplateRows="repeat(2, auto)" // Update to 2 rows
+						gap="20px"
+					>
+						{/* ROW 1 */}
+						<OverviewBox
+							title="Current Month (KGs CO2 Emitted)"
+							value={parseInt(data?.totalCarbonByPerson)}
+							transport={parseInt(data?.carbonData?.categories?.transport)}
+							electricity={parseInt(data?.carbonData?.categories?.electricity)}
+							others={parseInt(data?.carbonData?.categories?.others)}
+							icon={
+								<Co2
+									sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+								/>
+							}
+							rowSpan={2}
+							colSpan={4}
+						/>
+					</Box>
+					<Box
+						gridColumn="span 8"
+						gridRow="span 2"
+						backgroundColor={theme.palette.background.alt}
+						p="1rem"
+						borderRadius="0.55rem"
+					>
+						<OverviewChart isDashboard={true} />
+					</Box>
+
+					{data?.carbonData?.categories && (
+						<Box
+							gridColumn="span 4"
+							gridRow="span 3"
+							backgroundColor={theme.palette.background.alt}
+							p="1.5rem"
+							borderRadius="0.55rem"
+						>
+							<Typography
+								variant="h3"
+								sx={{ color: theme.palette.secondary[100], fontWeight: "bold" }}
+							>
+								Current By Category
+							</Typography>
+							<BreakdownChart
+								categories={data.carbonData.categories}
+								isDashboard={true}
+							/>
+							<Typography
+								p="0 0.6rem"
+								fontSize="0.8rem"
+								sx={{ color: theme.palette.secondary[200] }}
+							>
+								Breakdown of carbon footprint by the category in which it was
+								generated.
+							</Typography>
+						</Box>
+					)}
+					<CarbonFootprintByMonth />
+					<CarbonSaveForm />
+				</Box>
+			)}
 		</Box>
 	);
 };

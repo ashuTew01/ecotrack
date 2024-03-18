@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Header from "components/Header";
 
 const WaterUsage = () => {
@@ -9,6 +9,9 @@ const WaterUsage = () => {
 				title="Your Water Usage Habits"
 				subtitle="Are you saving water, like it is saving you everyday?"
 			/>
+			<Typography marginTop={4} variant="h1">
+				COMING SOON!
+			</Typography>
 			<Box mt="40px" height="75vh"></Box>
 		</Box>
 	);

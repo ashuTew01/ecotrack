@@ -7,6 +7,7 @@ import {
 	createMultipleEcofriendlyTips,
 	getRandomEcofriendlyTips,
 	ecofriendlyTipsTest,
+	getRandomOneTip,
 } from "../controllers/ecofriendlyTipsController.js";
 
 const router = express.Router();
@@ -14,5 +15,6 @@ const router = express.Router();
 router.get("/test", ecofriendlyTipsTest);
 router.post("/create-multiple", createMultipleEcofriendlyTips);
 router.get("/get-random", getRandomEcofriendlyTips);
+router.get("/get-one", getRandomOneTip);
 
 export default router;

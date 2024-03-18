@@ -9,6 +9,18 @@ const userDataTest = asyncHandler(async (req, res) => {
 	res.status(200).json({ message: "ROUTE /userdata/test IS WORKING" });
 });
 
+const getUser = asyncHandler(async (req, res) => {
+	const user = await User.findById(req.user._id);
+
+	if (!user) {
+		return res.status(404).json({ message: "User not found" });
+	}
+
+	const { password, ...userWithoutPassword } = user.toObject();
+
+	res.status(200).json({ user: userWithoutPassword });
+});
+
 //***********************WATER USAGE START************************************************************* */
 
 // POST url /userdata/water-usage/save
@@ -212,6 +224,7 @@ const getPrevTwelveMonthWaterData = async (req, res) => {};
 
 export {
 	userDataTest,
+	getUser,
 	saveWaterUsageData,
 	getDetailedWaterUsageStats,
 	getWaterUsageStats,

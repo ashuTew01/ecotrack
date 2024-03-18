@@ -11,9 +11,9 @@ import FlexBetween from "components/FlexBetween";
 import { useSelector, useDispatch } from "react-redux";
 import { setMode } from "state";
 import profileImage from "assets/profile.jpeg";
-
+import { useGetUserQuery } from "state/api";
 import { removeCredentials } from "state/authSlice";
-import { useLogoutMutation } from "state/api";
+// import { useLogoutMutation } from "state/api";
 
 import {
 	AppBar,
@@ -29,7 +29,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 
@@ -37,8 +37,8 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 	const isOpen = Boolean(anchorEl);
 	const handleClick = (event) => setAnchorEl(event.currentTarget);
 
-	const { userInfo } = useSelector((state) => state.auth);
-
+	const { data: userInfo, isLoading } = useGetUserQuery();
+	const user = userInfo?.user;
 	const navigate = useNavigate();
 
 	// const [logoutApiCall] = useLogoutMutation();
@@ -94,9 +94,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 							<LightModeOutlined sx={{ fontSize: "25px" }} />
 						)}
 					</IconButton>
-					<IconButton>
+					{/* <IconButton>
 						<SettingsOutlined sx={{ fontSize: "25px" }} />
-					</IconButton>
+					</IconButton> */}
 
 					<FlexBetween>
 						<Button
@@ -112,27 +112,29 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 							<Box
 								component="img"
 								alt="profile"
-								src={profileImage}
+								src={`profile.png`}
 								height="32px"
 								width="32px"
 								borderRadius="50%"
 								sx={{ objectFit: "cover" }}
 							/>
-							<Box textAlign="left">
-								<Typography
-									fontWeight="bold"
-									fontSize="0.85rem"
-									sx={{ color: theme.palette.secondary[100] }}
-								>
-									{user.name}
-								</Typography>
-								<Typography
-									fontSize="0.75rem"
-									sx={{ color: theme.palette.secondary[200] }}
-								>
-									{user.occupation}
-								</Typography>
-							</Box>
+							{!isLoading && (
+								<Box textAlign="left">
+									<Typography
+										fontWeight="bold"
+										fontSize="0.85rem"
+										sx={{ color: theme.palette.secondary[100] }}
+									>
+										{user?.fname}
+									</Typography>
+									<Typography
+										fontSize="0.75rem"
+										sx={{ color: theme.palette.secondary[200] }}
+									>
+										{user?.city}
+									</Typography>
+								</Box>
+							)}
 							<ArrowDropDownOutlined
 								sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
 							/>

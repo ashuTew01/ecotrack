@@ -32,8 +32,11 @@ export const api = createApi({
 	],
 	endpoints: (build) => ({
 		getUser: build.query({
-			query: (id) => `admin/general/user/${id}`,
-			providesTags: ["User"],
+			query: () => ({
+				url: "userdata/get-user",
+				method: "GET",
+				headers: DEFAULT_HEADERS,
+			}),
 		}),
 
 		login: build.mutation({
@@ -90,14 +93,21 @@ export const api = createApi({
 			query: () => ({
 				url: "who-standards/get-random",
 				method: "GET",
-				headers: DEFAULT_HEADERS, // Include headers here
+				headers: DEFAULT_HEADERS,
 			}),
 		}),
 		getRandomEcofriendlyTips: build.query({
 			query: () => ({
 				url: "eco-tips/get-random",
 				method: "GET",
-				headers: DEFAULT_HEADERS, // Include headers here
+				headers: DEFAULT_HEADERS,
+			}),
+		}),
+		getOneTip: build.query({
+			query: () => ({
+				url: "eco-tips/get-one",
+				method: "GET",
+				headers: DEFAULT_HEADERS,
 			}),
 		}),
 
@@ -198,7 +208,6 @@ export const api = createApi({
 });
 
 export const {
-	useGetUserQuery,
 	useGetProductsQuery,
 	useGetCustomersQuery,
 	useGetTransactionsQuery,
@@ -214,6 +223,7 @@ export const {
 
 	useGetRandomEcofriendlyTipsQuery,
 	useGetRandomWhoStandardsQuery,
+	useGetOneTipQuery,
 
 	useGetCarbonStatsQuery,
 	useGetTwelveMonthCarbonQuery,
@@ -222,4 +232,6 @@ export const {
 	useRegisterMutation,
 	useLogoutMutation,
 	useSaveCarbonDataMutation,
+
+	useGetUserQuery,
 } = api;
