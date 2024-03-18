@@ -8,7 +8,7 @@ const newsTest = asyncHandler(async (req, res) => {
 const getTopHeadlines = asyncHandler(async (req, res) => {
 	try {
 		const { pageSize, page } = req.query;
-		const apiKey = "ba4c0ce6de1244c1a280bb7cfa38b987";
+		const apiKey = "85cc75be25484d8f8acdcc1d25985bd4";
 
 		const keywords = ["environment", "climate", "carbon"];
 
@@ -42,7 +42,7 @@ const getLocalNews = async (req, res) => {
 		const { page, pageSize } = req.query;
 		const city = req.user.city.toLowerCase();
 		// console.log(city);
-		const apiKey = "ba4c0ce6de1244c1a280bb7cfa38b987";
+		const apiKey = "85cc75be25484d8f8acdcc1d25985bd4";
 
 		// Construct the URL for the News API
 		const url = `https://newsapi.org/v2/everything?pageSize=${
@@ -71,7 +71,7 @@ const getGlobalNews = async (req, res) => {
 	try {
 		const { page, pageSize } = req.query;
 		// console.log(city);
-		const apiKey = "ba4c0ce6de1244c1a280bb7cfa38b987";
+		const apiKey = "85cc75be25484d8f8acdcc1d25985bd4";
 
 		// Construct the URL for the News API
 		const url = `https://newsapi.org/v2/everything?pageSize=${

@@ -12,10 +12,7 @@ import {
 import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
 import { useGetCarbonStatsQuery, useGetOneTipQuery } from "state/api";
-import StatBox from "components/StatBox";
 import OverviewBox from "components/OverviewBox";
-import CarbonFootprintByMonth from "components/CarbonFootprintByMonth";
-import CarbonSaveForm from "components/CarbonSaveForm";
 import WeatherInfo from "components/WeatherInfo";
 import NewsFeedDashboard from "components/NewsFeedsDashboard";
 

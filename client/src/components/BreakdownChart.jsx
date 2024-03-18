@@ -1,6 +1,6 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 
 const BreakdownChart = ({
 	isDashboard = false,

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Typography } from "@mui/material";
-import Header from "components/Header";
 import NewsFeedCard from "components/NewsCard";
 import { useGetGlobalNewsQuery } from "state/api.js";
 import { useTheme } from "@mui/material/styles";

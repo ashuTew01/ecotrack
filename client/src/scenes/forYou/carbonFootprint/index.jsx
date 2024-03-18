@@ -9,11 +9,9 @@ import {
 	useTheme,
 	useMediaQuery,
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
 import { useGetCarbonStatsQuery } from "state/api";
-import StatBox from "components/StatBox";
 import OverviewBox from "components/OverviewBox";
 import CarbonFootprintByMonth from "components/CarbonFootprintByMonth";
 import CarbonSaveForm from "components/CarbonSaveForm";

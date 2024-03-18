@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Box,
 	Card,
@@ -12,7 +12,9 @@ import {
 } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import Header from "components/Header";
-import { useGetRandomEcofriendlyTipsQuery } from "state/api";
+import { useGetRandomEcofriendlyTipsQuery } from "state/api.js";
+import { Refresh } from "@mui/icons-material";
+import FlexBetween from "components/FlexBetween";
 
 const StdCard = ({ _id, title, content, type }) => {
 	const theme = useTheme();
@@ -34,15 +36,10 @@ const StdCard = ({ _id, title, content, type }) => {
 				>
 					{type}
 				</Typography>
-				<Typography variant="h3" component="div" sx={{}}>
+				<Typography variant="h3" component="div">
 					{title}
 				</Typography>
 				<Box height={10}></Box>
-				{/* <Typography sx={{ mb: "1.5rem" }} color={theme.palette.secondary[400]}>
-					${Number(price).toFixed(2)}
-				</Typography> */}
-				{/* <Rating value={rating} readOnly /> */}
-
 				<Typography variant="h5" sx={{ color: theme.palette.primary[100] }}>
 					{content}
 				</Typography>
@@ -75,17 +72,42 @@ const StdCard = ({ _id, title, content, type }) => {
 
 const EcofriendlyTips = () => {
 	const theme = useTheme();
-	const { data: apiData, isLoading } = useGetRandomEcofriendlyTipsQuery();
+	const {
+		data: apiData,
+		isLoading,
+		refetch,
+	} = useGetRandomEcofriendlyTipsQuery();
 	const isNonMobile = useMediaQuery("(min-width: 1000px)");
 	const data = apiData?.data;
-	console.log(apiData);
+	const [refresh, setRefresh] = useState(false);
+
+	useEffect(() => {
+		if (refresh) {
+			refetch();
+			setRefresh(false);
+		}
+	}, [refresh, refetch]);
+
+	const handleClick = () => {
+		setRefresh(true);
+	};
 
 	return (
 		<Box m="1.5rem 2.5rem">
-			<Header
-				title="Ecofriendly Tips (Hit Refresh!)"
-				subtitle="Green is the New Cool: Discover Fun Eco-Hacks to Save the Planet! Refresh to see new ones."
-			/>
+			<Box display="flex" justifyContent="space-between">
+				<Header
+					title="Ecofriendly Tips (Hit Refresh!)"
+					subtitle="Green is the New Cool: Discover Fun Eco-Hacks to Save the Planet! Refresh to see new ones."
+				/>
+				<Button variant="contained" onClick={handleClick}>
+					<FlexBetween>
+						<Refresh fontSize="large" />
+						<Box width={6}></Box>
+						<Typography>Refresh</Typography>
+					</FlexBetween>
+				</Button>
+			</Box>
+
 			{data || !isLoading ? (
 				<Box
 					mt="20px"

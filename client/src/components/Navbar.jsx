@@ -4,13 +4,11 @@ import {
 	DarkModeOutlined,
 	Menu as MenuIcon,
 	Search,
-	SettingsOutlined,
 	ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setMode } from "state";
-import profileImage from "assets/profile.jpeg";
 import { useGetUserQuery } from "state/api";
 import { removeCredentials } from "state/authSlice";
 // import { useLogoutMutation } from "state/api";
