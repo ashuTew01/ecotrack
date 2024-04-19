@@ -110,6 +110,7 @@ export const api = createApi({
 				method: "GET",
 				headers: DEFAULT_HEADERS,
 			}),
+			maxRetries: 2,
 		}),
 		getTwelveMonthCarbon: build.query({
 			query: () => ({
