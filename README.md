@@ -9,6 +9,8 @@ EcoTrack is a web application designed to help users track their carbon footprin
 - Environmental/WHO Tips: Get personalized eco-friendly tips and suggestions to reduce your environmental impact.
 - Global, Local, Top Environment News & Events: Stay informed about global environmental news and events shaping our future.
 
+[PDF Demo Link](https://drive.google.com/file/d/1b3uVilecGM-q90acVMOgd0L0q__XWgD-/view?usp=sharing)
+
 ## Technologies Used
 
 - React.js: Frontend library for building user interfaces.
