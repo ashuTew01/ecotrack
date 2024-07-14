@@ -39,9 +39,9 @@ REACT_APP_BASE_URL=http://localhost:3011
 3. Create a `.env` file with the following environment variables:
    
 ```plaintext
-MONGO_URI="mongodb+srv://<username>:<password>@cluster0.w6slea8.mongodb.net/ecotrack?retryWrites=true&w=majority"
+MONGO_URI=""
 PORT=3011
-JWT_SECRET=secr1235
+JWT_SECRET=
 ```
 
 4. Run `npm run dev` to start the backend server.
